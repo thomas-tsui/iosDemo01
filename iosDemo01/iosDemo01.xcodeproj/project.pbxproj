@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A894D52324C4D74A009C9ED9 /* AppIconImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A894D52224C4D74A009C9ED9 /* AppIconImageView.swift */; };
 		A894D52A24C607D9009C9ED9 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A894D52924C607D9009C9ED9 /* UIView+Extension.swift */; };
 		A8C4DE3124C46EBF002BFF9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C4DE3024C46EBF002BFF9F /* AppDelegate.swift */; };
 		A8C4DE3324C46EBF002BFF9F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C4DE3224C46EBF002BFF9F /* SceneDelegate.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A894D52224C4D74A009C9ED9 /* AppIconImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconImageView.swift; sourceTree = "<group>"; };
 		A894D52924C607D9009C9ED9 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		A8C4DE2D24C46EBF002BFF9F /* iosDemo01.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosDemo01.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8C4DE3024C46EBF002BFF9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				A8C4DE3224C46EBF002BFF9F /* SceneDelegate.swift */,
 				A8C4DE5224C4A545002BFF9F /* Storyboards */,
 				A8C4DE5324C4B58F002BFF9F /* ViewControllers */,
+				A894D51B24C4C9BE009C9ED9 /* Views */,
 				A894D52824C607BA009C9ED9 /* Helpers */,
 				A8C4DE3924C46EC1002BFF9F /* Assets.xcassets */,
 				A8C4DE3E24C46EC1002BFF9F /* Info.plist */,
@@ -230,6 +233,7 @@
 				A894D52A24C607D9009C9ED9 /* UIView+Extension.swift in Sources */,
 				A8C4DE3124C46EBF002BFF9F /* AppDelegate.swift in Sources */,
 				A8C4DE3324C46EBF002BFF9F /* SceneDelegate.swift in Sources */,
+				A894D52324C4D74A009C9ED9 /* AppIconImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
