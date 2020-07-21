@@ -5,7 +5,7 @@
 	XCode 11.2.1
 	Swfit 4
 
-## What the target of each project
+## What the target of this project
 
 	iOS 11.0 or higher iOS version
 
