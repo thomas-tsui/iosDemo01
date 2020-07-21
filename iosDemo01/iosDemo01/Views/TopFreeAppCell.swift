@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Cosmos
 
 class TopFreeAppCell: UITableViewCell {
     @IBOutlet weak var indexLabel: UILabel!
@@ -14,6 +15,15 @@ class TopFreeAppCell: UITableViewCell {
     @IBOutlet weak var appTypeLabel: UILabel!
     @IBOutlet weak var ratingView: UIView!
     @IBOutlet weak var ratingNumCountLabel: UILabel!
+    
+    private lazy var cosmosView: CosmosView = {
+        var view = CosmosView()
+        view.settings.starSize = 12
+        view.settings.starMargin = 0.5
+        view.settings.fillMode = .half
+        view.settings.updateOnTouch = false
+        return view
+    }()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,6 +40,10 @@ class TopFreeAppCell: UITableViewCell {
         appTypeLabel.textColor = UIColor.gray
         ratingNumCountLabel.font = UIFont.systemFont(ofSize: 10, weight: .regular)
         ratingNumCountLabel.textColor = UIColor.gray
+        
+        ratingView.backgroundColor = .white
+        cosmosView.frame = ratingView.bounds
+        ratingView.addSubview(cosmosView)
     }
     
     func setIndexText(_ indexText: String) {
@@ -56,5 +70,7 @@ class TopFreeAppCell: UITableViewCell {
         ratingNumCountLabel.text = "(\(ratingNum))"
     }
     
-    //TODO: add rating star view
+    func setAppRatings(_ ratings: Double) {
+        cosmosView.rating = ratings
+    }
 }

@@ -6,6 +6,7 @@ target 'iosDemo01' do
   use_frameworks!
 
   # Pods for iosDemo01
+  pod 'Cosmos'
 
   target 'iosDemo01Tests' do
     inherit! :search_paths

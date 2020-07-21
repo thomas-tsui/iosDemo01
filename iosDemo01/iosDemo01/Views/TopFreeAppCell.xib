@@ -45,15 +45,15 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kiT-6D-xjP">
-                        <rect key="frame" x="124" y="48" width="60" height="16"/>
+                        <rect key="frame" x="124" y="52" width="60" height="12"/>
                         <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="4La-ID-ohO"/>
-                            <constraint firstAttribute="height" constant="16" id="IyM-aO-RnT"/>
+                            <constraint firstAttribute="height" constant="12" id="IyM-aO-RnT"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uCf-gU-oUz">
-                        <rect key="frame" x="188" y="48.5" width="31" height="15"/>
+                        <rect key="frame" x="188" y="50.5" width="31" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>

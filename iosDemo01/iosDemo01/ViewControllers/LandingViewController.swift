@@ -60,6 +60,7 @@ extension LandingViewController: UITableViewDataSource {
         topFreeAppCell.setAppNameLabelText("APP APP APP")
         topFreeAppCell.setAppTypeLabelText("Game")
         topFreeAppCell.setRatingNumCountLabelText("17")
+        topFreeAppCell.setAppRatings(2.5)
         return topFreeAppCell
     }
     
