@@ -1,2 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-iosDemo01/Pods-iosDemo01-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework
 ${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework
+${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework

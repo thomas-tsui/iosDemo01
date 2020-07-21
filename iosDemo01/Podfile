@@ -7,6 +7,7 @@ target 'iosDemo01' do
 
   # Pods for iosDemo01
   pod 'Cosmos'
+  pod 'AlamofireObjectMapper', '~> 5.2'
 
   target 'iosDemo01Tests' do
     inherit! :search_paths

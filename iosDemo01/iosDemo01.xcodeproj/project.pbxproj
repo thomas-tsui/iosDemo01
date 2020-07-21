@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -92,7 +92,6 @@
 				CB8B10DA7CEDD0679BCE8BFD /* Pods-iosDemo01Tests.debug.xcconfig */,
 				EE74D4728BE3B469D4A58E6C /* Pods-iosDemo01Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -116,6 +115,20 @@
 				A894D52924C607D9009C9ED9 /* UIView+Extension.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		A894D53524C74D54009C9ED9 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		A894D53624C74D6C009C9ED9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		A8C4DE2424C46EBF002BFF9F = {
@@ -144,6 +157,8 @@
 				A8C4DE3024C46EBF002BFF9F /* AppDelegate.swift */,
 				A8C4DE3224C46EBF002BFF9F /* SceneDelegate.swift */,
 				A8C4DE5224C4A545002BFF9F /* Storyboards */,
+				A894D53624C74D6C009C9ED9 /* Models */,
+				A894D53524C74D54009C9ED9 /* ViewModels */,
 				A8C4DE5324C4B58F002BFF9F /* ViewControllers */,
 				A894D51B24C4C9BE009C9ED9 /* Views */,
 				A894D52824C607BA009C9ED9 /* Helpers */,
