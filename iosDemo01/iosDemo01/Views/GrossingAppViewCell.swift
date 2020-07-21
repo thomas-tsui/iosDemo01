@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Tsui on 21/7/2020.
 //
+// MARK: This is UICollectionViewCell for displaying grossing app data
 
 import UIKit
 
@@ -20,6 +21,7 @@ class GrossingAppViewCell: UICollectionViewCell {
     }
     
     private func initLayout() {
+        // MARK: Default round corner radius
         imageView.setCornerRadius(_isCircle: false, cornerRadius: 12)
         
         appTitle.font = UIFont.systemFont(ofSize: 12, weight: .regular)
@@ -29,6 +31,7 @@ class GrossingAppViewCell: UICollectionViewCell {
         appType.textColor = UIColor.gray
     }
     
+    // MARK: Providing public functions for ViewController to assign data
     func setImage(_ image: UIImage?) {
         self.imageView.image = image
     }

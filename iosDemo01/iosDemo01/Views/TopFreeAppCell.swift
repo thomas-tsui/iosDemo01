@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Tsui on 21/7/2020.
 //
+// MARK: This is UITableViewCell for displaying top free app data
 
 import UIKit
 import Cosmos
@@ -16,6 +17,7 @@ class TopFreeAppCell: UITableViewCell {
     @IBOutlet weak var ratingView: UIView!
     @IBOutlet weak var ratingNumCountLabel: UILabel!
     
+    // MARK: lazy init rating star view and added after ratingView parent view is ready
     private lazy var cosmosView: CosmosView = {
         var view = CosmosView()
         view.settings.starSize = 12
@@ -46,6 +48,7 @@ class TopFreeAppCell: UITableViewCell {
         ratingView.addSubview(cosmosView)
     }
     
+    // MARK: Providing public functions for ViewController to assign data
     func setIndexText(_ indexText: String) {
         indexLabel.text = indexText
     }

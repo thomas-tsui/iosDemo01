@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Tsui on 21/7/2020.
 //
+// MARK: This Extension is for develops init a view without typing nib name
 
 import UIKit
 

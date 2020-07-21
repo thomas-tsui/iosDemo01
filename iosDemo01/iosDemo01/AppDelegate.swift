@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
-        // Override point for customization after application launch.
+        // MARK: Set up UINavigationController be rootVC and set LandingViewController be the first page
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let rootViewController: UIViewController?
         rootViewController = storyboard.instantiateViewController(withIdentifier: "LandingVC")

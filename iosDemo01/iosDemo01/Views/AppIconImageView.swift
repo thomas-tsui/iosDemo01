@@ -4,12 +4,14 @@
 //
 //  Created by Thomas Tsui on 20/7/2020.
 //
+// MARK: This is UIImageView for App Icon
 
 import UIKit
 
 class AppIconImageView: UIImageView {
     var isCircle: Bool = false
     
+    // MARK: Providing public function for setting view corner radius
     func setCornerRadius(_isCircle: Bool, cornerRadius: CGFloat? = nil) {
         self.isCircle = _isCircle
         

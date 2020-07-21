@@ -4,10 +4,12 @@
 //
 //  Created by Thomas Tsui on 21/7/2020.
 //
+// MARK: This is header view with grossing app collection view in Landing page
 
 import UIKit
 
 class GrossingAppView: UIView {
+    // MARK: Model of grossing app content
     struct recommendItem {
         var image: UIImage = #imageLiteral(resourceName: "demoIcon1")
         let appTitle: String
@@ -24,6 +26,7 @@ class GrossingAppView: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    // MARK: Set variables for cell identifier for preventing syntax error
     private let appCellIdentifier = "RecommendAppViewCell"
     public var items: [recommendItem] = []
     
@@ -31,7 +34,7 @@ class GrossingAppView: UIView {
         super.init(coder: aDecoder)
     }
     
-    override public func awakeFromNib() {
+    override func awakeFromNib() {
         super.awakeFromNib()
         initLayout()
         collectionView.delegate = self
@@ -47,6 +50,7 @@ class GrossingAppView: UIView {
         titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
     }
     
+    // MARK: Providing public functions for ViewController to assign data
     func setHeaderCellTitle(_ title: String) {
         self.titleLabel.text = title
     }
@@ -84,6 +88,7 @@ extension GrossingAppView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // MARK: Set up GrossingAppViewCell as reusable cell type & set data to the cell
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: appCellIdentifier, for: indexPath) as? GrossingAppViewCell {
             if indexPath.row < items.count {
                 let item = items[indexPath.row]

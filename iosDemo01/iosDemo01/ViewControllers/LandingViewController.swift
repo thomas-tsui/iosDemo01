@@ -11,6 +11,7 @@ class LandingViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
 
+    // MARK: Set variables for cell identifier for preventing syntax error
     private let recommendHeaderViewIdentifier: String = "recommendHeaderViewIdentifier"
     private let topFreeAppCellIdentifier: String = "topFreeAppCellIdentifier"
     
@@ -49,6 +50,7 @@ extension LandingViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // MARK: Set up TopFreeAppCell as reusable cell type
         guard let topFreeAppCell = tableView.dequeueReusableCell(withIdentifier: topFreeAppCellIdentifier, for: indexPath) as? TopFreeAppCell else {
             let cell = UITableViewCell()
             cell.textLabel?.text = "Test Cell: \(indexPath.row)"
@@ -65,6 +67,7 @@ extension LandingViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        // MARK: Set up GrossingAppView as header view
         let header = GrossingAppView.fromNib()
         header.setHeaderCellTitle("推介")
         for index in 0..<10 {
