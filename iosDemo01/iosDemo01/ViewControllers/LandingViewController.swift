@@ -17,11 +17,13 @@ class LandingViewController: UIViewController {
     
     private let viewModel = LandingViewModel()
     private var isLoadingData = false
+    private var isSearching = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         initTableView()
+        searchBar.delegate = self
         viewModel.delegate = self
         viewModel.getTopGrossingAppList()
         viewModel.getTopFreeAppList(appCount: viewModel.currentTopAppDataCount)
@@ -50,14 +52,14 @@ class LandingViewController: UIViewController {
 
 extension LandingViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 204
+        return isSearching ? 0.1 : 204
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y > 0 {
             let distanceFromBottom = scrollView.contentSize.height - scrollView.contentOffset.y
             if distanceFromBottom <= scrollView.frame.size.height {
-                guard viewModel.currentTopAppDataCount < 100, !isLoadingData else { return }
+                guard viewModel.currentTopAppDataCount < 100, !isLoadingData, !isSearching else { return }
                 isLoadingData = true
                 viewModel.currentTopAppDataCount += 10
                 viewModel.getTopFreeAppList(appCount: viewModel.currentTopAppDataCount)
@@ -68,7 +70,7 @@ extension LandingViewController: UITableViewDelegate {
 
 extension LandingViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.appDetailsArray.count
+        isSearching ? viewModel.filteredData.count : viewModel.appDetailsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -82,7 +84,8 @@ extension LandingViewController: UITableViewDataSource {
         topFreeAppCell.setIndexText("\(indexPath.row+1)")
         topFreeAppCell.setImageCornerRadius(indexPath.row%2==1)
         
-        let imageUrl = viewModel.appDetailsArray[indexPath.row].image?.last?.label ?? ""
+        let appDetail: TopFreeAppDetails = isSearching ? viewModel.filteredData[indexPath.row] : viewModel.appDetailsArray[indexPath.row]
+        let imageUrl = appDetail.image?.last?.label ?? ""
         if let url = URL(string: imageUrl) {
             getData(from: url) { data, response, error in
                 guard let data = data, error == nil else { return }
@@ -91,15 +94,16 @@ extension LandingViewController: UITableViewDataSource {
                 }
             }
         }
-        topFreeAppCell.setAppNameLabelText(viewModel.appDetailsArray[indexPath.row].name ?? "")
-        topFreeAppCell.setAppTypeLabelText(viewModel.appDetailsArray[indexPath.row].categoryLabel ?? "")
-        topFreeAppCell.setRatingNumCountLabelText("\(viewModel.appDetailsArray[indexPath.row].userRatingCountForCurrentVersion ?? 0)")
-        topFreeAppCell.setAppRatings(viewModel.appDetailsArray[indexPath.row].averageUserRatingForCurrentVersion?.round(to: 1) ?? 0)
+        topFreeAppCell.setAppNameLabelText(appDetail.name ?? "")
+        topFreeAppCell.setAppTypeLabelText(appDetail.categoryLabel ?? "")
+        topFreeAppCell.setRatingNumCountLabelText("\(appDetail.userRatingCountForCurrentVersion ?? 0)")
+        topFreeAppCell.setAppRatings(appDetail.averageUserRatingForCurrentVersion?.round(to: 1) ?? 0)
         return topFreeAppCell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         // MARK: Set up GrossingAppView as header view
+        guard !isSearching else { return nil }
         let header = GrossingAppView.fromNib()
         header.setHeaderCellTitle("推介")
         for app in viewModel.grossingAppArray {
@@ -130,3 +134,45 @@ extension LandingViewController: LandingViewControllerDelegate {
     }
 }
 
+extension LandingViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filterContentForSearchText(searchText: searchText)
+    }
+    
+    func filterContentForSearchText(searchText: String) {
+        if searchText != "" {
+            isSearching = true
+            var filteredTopAppData: [TopFreeAppDetails] = []
+            var filteredGrossingAppData:  [TopFreeAppDetails] = []
+            
+            filteredTopAppData = viewModel.appDetailsArray.filter { TopFreeAppDetails in
+                guard let name = TopFreeAppDetails.name,
+                      let summary = TopFreeAppDetails.summary,
+                      let categoryLabel = TopFreeAppDetails.categoryLabel,
+                      let artist = TopFreeAppDetails.artist else { return false }
+                return name.lowercased().contains(searchText.lowercased()) ||
+                       summary.lowercased().contains(searchText.lowercased()) ||
+                       categoryLabel.lowercased().contains(searchText.lowercased()) ||
+                       artist.lowercased().contains(searchText.lowercased())
+            }
+            
+            filteredGrossingAppData = viewModel.grossingAppArray.filter { TopFreeAppDetails in
+                guard let name = TopFreeAppDetails.name,
+                      let summary = TopFreeAppDetails.summary,
+                      let categoryLabel = TopFreeAppDetails.categoryLabel,
+                      let artist = TopFreeAppDetails.artist else { return false }
+                return name.lowercased().contains(searchText.lowercased()) ||
+                       summary.lowercased().contains(searchText.lowercased()) ||
+                       categoryLabel.lowercased().contains(searchText.lowercased()) ||
+                       artist.lowercased().contains(searchText.lowercased())
+            }
+            
+            viewModel.filteredData = filteredTopAppData + filteredGrossingAppData
+            self.tableView.reloadData()
+        } else {
+            viewModel.filteredData = []
+            isSearching = false
+            self.tableView.reloadData()
+        }
+    }
+}

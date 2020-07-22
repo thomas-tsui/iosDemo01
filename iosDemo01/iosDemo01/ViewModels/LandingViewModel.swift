@@ -19,6 +19,8 @@ class LandingViewModel: NSObject {
     var grossingAppArray: [TopFreeAppDetails] = []
     var appDetailsArray: [TopFreeAppDetails] = []
     
+    var filteredData: [TopFreeAppDetails] = []
+    
     var currentTopAppDataCount: Int = 10
     
     weak var delegate: LandingViewControllerDelegate?
