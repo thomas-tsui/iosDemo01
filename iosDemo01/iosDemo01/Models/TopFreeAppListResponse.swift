@@ -4,9 +4,11 @@
 //
 //  Created by Thomas Tsui on 22/7/2020.
 //
+// MARK: This is the model of top free apps API response
 
 import ObjectMapper
 
+// MARK: First level of top free apps API JSON response
 class TopFreeAppListResponse: Mappable {
     var entry: [TopFreeAppDetails]?
     
@@ -17,6 +19,8 @@ class TopFreeAppListResponse: Mappable {
     }
 }
 
+// MARK: The Model of each app content
+// MARK: Second level of top free apps API JSON response
 class TopFreeAppDetails: NSObject, Mappable {
     var name: String?
     var image: [AppImageDetails]?
@@ -40,6 +44,7 @@ class TopFreeAppDetails: NSObject, Mappable {
     }
 }
 
+// MARK: Model of different size image URL string in JSON response
 class AppImageDetails: NSObject, Mappable {
     var label: String?
     var height: String?

@@ -15,7 +15,10 @@ class LandingViewController: UIViewController {
     private let recommendHeaderViewIdentifier: String = "recommendHeaderViewIdentifier"
     private let topFreeAppCellIdentifier: String = "topFreeAppCellIdentifier"
     
+    // MARK: Init LandingViewModel instance
     private let viewModel = LandingViewModel()
+    
+    // MARK: Flags for controlling tableview
     private var isLoadingData = false
     private var isSearching = false
     
@@ -41,6 +44,7 @@ class LandingViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
+    // MARK: Set up view tap gesture to allow user dismiss keyboard by tapping blank area
     private func setUpViewTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
         self.view.addGestureRecognizer(tapGesture)
@@ -56,6 +60,7 @@ class LandingViewController: UIViewController {
         tableView.register(TopFreeAppCell.fromNib(), forCellReuseIdentifier: topFreeAppCellIdentifier)
     }
     
+    // MARK: Functions for picture downloading
     private func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
@@ -66,6 +71,7 @@ extension LandingViewController: UITableViewDelegate {
         return isSearching ? 0.1 : 204
     }
     
+    // MARK: Trigger paging function when user scroll to the bottom of tableview
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y > 0 {
             let distanceFromBottom = scrollView.contentSize.height - scrollView.contentOffset.y
@@ -95,7 +101,10 @@ extension LandingViewController: UITableViewDataSource {
         topFreeAppCell.setIndexText("\(indexPath.row+1)")
         topFreeAppCell.setImageCornerRadius(indexPath.row%2==1)
         
+        // MARK: Conditions with taking data source
         let appDetail: TopFreeAppDetails = isSearching ? viewModel.filteredData[indexPath.row] : viewModel.appDetailsArray[indexPath.row]
+        
+        // MARK: Download image from URL
         let imageUrl = appDetail.image?.last?.label ?? ""
         if let url = URL(string: imageUrl) {
             getData(from: url) { data, response, error in
@@ -105,6 +114,8 @@ extension LandingViewController: UITableViewDataSource {
                 }
             }
         }
+        
+        // MARK: Set contents to top free app cell
         topFreeAppCell.setAppNameLabelText(appDetail.name ?? "")
         topFreeAppCell.setAppTypeLabelText(appDetail.categoryLabel ?? "")
         topFreeAppCell.setRatingNumCountLabelText("\(appDetail.userRatingCountForCurrentVersion ?? 0)")
@@ -113,12 +124,17 @@ extension LandingViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        // MARK: Set up GrossingAppView as header view
+        // MARK: If user is searching, hide header view
         guard !isSearching else { return nil }
+        
+        // MARK: Set up GrossingAppView as header view
         let header = GrossingAppView.fromNib()
         header.setHeaderCellTitle("推介")
         for app in viewModel.grossingAppArray {
+            // MARK: Set contents to collection view cell
             header.addItem(appTitle: app.name ?? "", appTypeTitle: app.categoryLabel ?? "", id: app.id ?? "")
+            
+            // MARK: Download image from URL
             let imageUrl = app.image?.last?.label ?? ""
             if let url = URL(string: imageUrl), let index = viewModel.grossingAppArray.index(of: app) {
                 getData(from: url) { data, response, error in
@@ -150,6 +166,7 @@ extension LandingViewController: UISearchBarDelegate {
         filterContentForSearchText(searchText: searchText)
     }
     
+    // MARK: Searching in grossing app list and top free app list
     func filterContentForSearchText(searchText: String) {
         if searchText.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
             isSearching = true
