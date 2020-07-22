@@ -23,6 +23,8 @@ class LandingViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         initTableView()
+        setUpViewTapGesture()
+        
         searchBar.delegate = self
         viewModel.delegate = self
         viewModel.getTopGrossingAppList()
@@ -37,6 +39,15 @@ class LandingViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    private func setUpViewTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyBoard))
+        self.view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func dismissKeyBoard() {
+        self.view.endEditing(true)
     }
     
     private func initTableView() {
