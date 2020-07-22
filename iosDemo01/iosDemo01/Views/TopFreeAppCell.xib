@@ -33,7 +33,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Facebook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bv0-jW-U0P">
-                        <rect key="frame" x="124" y="10" width="290" height="17"/>
+                        <rect key="frame" x="124" y="10" width="282" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -63,7 +63,7 @@
                     <constraint firstItem="SYB-yA-UGZ" firstAttribute="centerY" secondItem="VHD-vc-1ln" secondAttribute="centerY" id="71a-gr-KXZ"/>
                     <constraint firstItem="uCf-gU-oUz" firstAttribute="centerY" secondItem="kiT-6D-xjP" secondAttribute="centerY" id="BM4-I7-OWo"/>
                     <constraint firstItem="Uxf-cB-2Gm" firstAttribute="leading" secondItem="wDk-XI-PuX" secondAttribute="leading" constant="16" id="DSk-77-KND"/>
-                    <constraint firstAttribute="trailing" secondItem="bv0-jW-U0P" secondAttribute="trailing" id="EGA-yt-xdy"/>
+                    <constraint firstAttribute="trailing" secondItem="bv0-jW-U0P" secondAttribute="trailing" constant="8" id="EGA-yt-xdy"/>
                     <constraint firstAttribute="bottom" secondItem="VHD-vc-1ln" secondAttribute="bottom" constant="8" id="FIe-5G-U2C"/>
                     <constraint firstItem="Uxf-cB-2Gm" firstAttribute="centerY" secondItem="wDk-XI-PuX" secondAttribute="centerY" id="WpY-Pw-zmt"/>
                     <constraint firstItem="bv0-jW-U0P" firstAttribute="leading" secondItem="VHD-vc-1ln" secondAttribute="trailing" constant="8" id="Zgz-im-jhq"/>
