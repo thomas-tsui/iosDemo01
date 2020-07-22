@@ -13,7 +13,7 @@ class GrossingAppViewCell: UICollectionViewCell {
     @IBOutlet var appTitle: UILabel!
     @IBOutlet var appType: UILabel!
     
-    public var id: Int?
+    public var id: String?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,7 +44,7 @@ class GrossingAppViewCell: UICollectionViewCell {
         self.appType.text = name
     }
     
-    func setAppId(_ id: Int) {
+    func setAppId(_ id: String) {
         self.id = id
     }
 }

@@ -11,12 +11,12 @@ import UIKit
 class GrossingAppView: UIView {
     // MARK: Model of grossing app content
     struct recommendItem {
-        var image: UIImage = #imageLiteral(resourceName: "demoIcon1")
+        var image: UIImage?
         let appTitle: String
         let appTypeTitle: String
-        let id: Int
+        let id: String
         
-        init(appTitle: String, appTypeTitle: String, id: Int) {
+        init(appTitle: String, appTypeTitle: String, id: String) {
             self.appTitle = appTitle
             self.appTypeTitle = appTypeTitle
             self.id = id
@@ -55,7 +55,7 @@ class GrossingAppView: UIView {
         self.titleLabel.text = title
     }
     
-    func addItem(appTitle: String, appTypeTitle: String, id: Int) {
+    func addItem(appTitle: String, appTypeTitle: String, id: String) {
         let item = recommendItem(appTitle: appTitle, appTypeTitle: appTypeTitle, id: id)
         items.append(item)
     }
