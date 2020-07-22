@@ -151,7 +151,7 @@ extension LandingViewController: UISearchBarDelegate {
     }
     
     func filterContentForSearchText(searchText: String) {
-        if searchText != "" {
+        if searchText.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
             isSearching = true
             var filteredTopAppData: [TopFreeAppDetails] = []
             var filteredGrossingAppData:  [TopFreeAppDetails] = []
