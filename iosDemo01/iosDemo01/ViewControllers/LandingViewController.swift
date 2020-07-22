@@ -15,10 +15,15 @@ class LandingViewController: UIViewController {
     private let recommendHeaderViewIdentifier: String = "recommendHeaderViewIdentifier"
     private let topFreeAppCellIdentifier: String = "topFreeAppCellIdentifier"
     
+    private let viewModel = LandingViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         initTableView()
+        viewModel.delegate = self
+        viewModel.getTopGrossingAppList()
+        viewModel.getTopFreeAppList(appCount: viewModel.currentTopAppDataCount)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,6 +41,10 @@ class LandingViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(TopFreeAppCell.fromNib(), forCellReuseIdentifier: topFreeAppCellIdentifier)
     }
+    
+    private func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
 }
 
 extension LandingViewController: UITableViewDelegate {
@@ -46,7 +55,7 @@ extension LandingViewController: UITableViewDelegate {
 
 extension LandingViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        viewModel.appDetailsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -56,13 +65,23 @@ extension LandingViewController: UITableViewDataSource {
             cell.textLabel?.text = "Test Cell: \(indexPath.row)"
             return cell
         }
+        
         topFreeAppCell.setIndexText("\(indexPath.row+1)")
-        topFreeAppCell.setImage(#imageLiteral(resourceName: "demoIcon1"))
         topFreeAppCell.setImageCornerRadius(indexPath.row%2==1)
-        topFreeAppCell.setAppNameLabelText("APP APP APP")
-        topFreeAppCell.setAppTypeLabelText("Game")
-        topFreeAppCell.setRatingNumCountLabelText("17")
-        topFreeAppCell.setAppRatings(2.5)
+        
+        let imageUrl = viewModel.appDetailsArray[indexPath.row].image?.last?.label ?? ""
+        if let url = URL(string: imageUrl) {
+            getData(from: url) { data, response, error in
+                guard let data = data, error == nil else { return }
+                DispatchQueue.main.async() {
+                    topFreeAppCell.setImage(UIImage(data: data) ?? #imageLiteral(resourceName: "demoIcon1"))
+                }
+            }
+        }
+        topFreeAppCell.setAppNameLabelText(viewModel.appDetailsArray[indexPath.row].name ?? "")
+        topFreeAppCell.setAppTypeLabelText(viewModel.appDetailsArray[indexPath.row].categoryLabel ?? "")
+        topFreeAppCell.setRatingNumCountLabelText("\(viewModel.appDetailsArray[indexPath.row].userRatingCountForCurrentVersion ?? 0)")
+        topFreeAppCell.setAppRatings(viewModel.appDetailsArray[indexPath.row].averageUserRatingForCurrentVersion?.round(to: 1) ?? 0)
         return topFreeAppCell
     }
     
@@ -70,10 +89,26 @@ extension LandingViewController: UITableViewDataSource {
         // MARK: Set up GrossingAppView as header view
         let header = GrossingAppView.fromNib()
         header.setHeaderCellTitle("推介")
-        for index in 0..<10 {
-            header.addItem(appTitle: "APP APP APP APP APP", appTypeTitle: "Game", id: index)
+        for app in viewModel.grossingAppArray {
+            header.addItem(appTitle: app.name ?? "", appTypeTitle: app.categoryLabel ?? "", id: app.id ?? "")
+            let imageUrl = app.image?.last?.label ?? ""
+            if let url = URL(string: imageUrl), let index = viewModel.grossingAppArray.index(of: app) {
+                getData(from: url) { data, response, error in
+                    guard let data = data, error == nil else { return }
+                    DispatchQueue.main.async() {
+                        header.setImage(UIImage(data: data) ?? #imageLiteral(resourceName: "demoIcon1"), at: index)
+                        header.reload()
+                    }
+                }
+            }
         }
         header.reload()
         return header
+    }
+}
+
+extension LandingViewController: LandingViewControllerDelegate {
+    func reloadTable() {
+        self.tableView.reloadData()
     }
 }
