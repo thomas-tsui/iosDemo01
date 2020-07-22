@@ -16,6 +16,7 @@ class LandingViewController: UIViewController {
     private let topFreeAppCellIdentifier: String = "topFreeAppCellIdentifier"
     
     private let viewModel = LandingViewModel()
+    private var isLoadingData = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +51,18 @@ class LandingViewController: UIViewController {
 extension LandingViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 204
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > 0 {
+            let distanceFromBottom = scrollView.contentSize.height - scrollView.contentOffset.y
+            if distanceFromBottom <= scrollView.frame.size.height {
+                guard viewModel.currentTopAppDataCount < 100, !isLoadingData else { return }
+                isLoadingData = true
+                viewModel.currentTopAppDataCount += 10
+                viewModel.getTopFreeAppList(appCount: viewModel.currentTopAppDataCount)
+            }
+        }
     }
 }
 
@@ -111,4 +124,9 @@ extension LandingViewController: LandingViewControllerDelegate {
     func reloadTable() {
         self.tableView.reloadData()
     }
+    
+    func setTableFinishedLoadData() {
+        self.isLoadingData = false
+    }
 }
+

@@ -12,6 +12,7 @@ import AlamofireObjectMapper
 
 protocol LandingViewControllerDelegate: NSObjectProtocol {
     func reloadTable()
+    func setTableFinishedLoadData()
 }
 
 class LandingViewModel: NSObject {
@@ -59,12 +60,12 @@ class LandingViewModel: NSObject {
                                 print("Error")
                                 return
                             }
-                            print(results)
                             for (index, value) in results.enumerated() {
                                 self.appDetailsArray[index].averageUserRatingForCurrentVersion = value.averageUserRatingForCurrentVersion
                                 self.appDetailsArray[index].userRatingCountForCurrentVersion = value.userRatingCountForCurrentVersion
                             }
                             self.delegate?.reloadTable()
+                            self.delegate?.setTableFinishedLoadData()
                         case .failure:
                             print("Error")
                         }
