@@ -35,6 +35,26 @@ class LandingViewModel: NSObject {
                     return
                 }
                 self.grossingAppArray = entry
+                if entry.count > 0 {
+                    let combinedIdString = self.getAppsId(array: entry)
+                    let appsDetailURL = "https://itunes.apple.com/hk/lookup?id=\(combinedIdString)"
+                    Alamofire.request(appsDetailURL).responseObject { (response: DataResponse<AppDetailsResponse>) in
+                        switch response.result {
+                        case .success:
+                            guard let _response = response.result.value, let results = _response.results else {
+                                print("Error")
+                                return
+                            }
+                            for (index, value) in results.enumerated() {
+                                self.grossingAppArray[index].averageUserRatingForCurrentVersion = value.averageUserRatingForCurrentVersion
+                                self.grossingAppArray[index].userRatingCountForCurrentVersion = value.userRatingCountForCurrentVersion
+                            }
+                            self.delegate?.reloadTable()
+                        case .failure:
+                            print("Error")
+                        }
+                    }
+                }
                 self.delegate?.reloadTable()
             case .failure:
                 print("Error")
